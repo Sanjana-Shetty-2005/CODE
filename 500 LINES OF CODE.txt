@@ -288,4 +288,480 @@ public class Main{
           }
    }
 }
-
+import java.util.Scanner;
+public class Main {
+	public static boolean isPerfectNumber(int number) {
+		int sum = 0;
+		for (int i = 1; i <= number / 2; i++) {
+			if (number % i == 0) {
+			
+				sum += i;
+			}
+		}
+		return sum == number;
+	}
+	public static void main(String[] args) {
+		Scanner scanner = new Scanner(System.in);
+		System.out.print("Enter a number: ");
+		int number = scanner.nextInt();
+		if (isPerfectNumber(number)) {
+			System.out.println(number + " is a perfect number.");
+		} else {
+			System.out.println(number + " is not a perfect number.");
+		}
+		scanner.close();
+	}
+}
+import java.util.*;
+public class Main {
+    public static void main(String[] args) {
+        // Scanner to take input from the user
+        Scanner scanner = new Scanner(System.in);
+        
+        // Ask the user for a number
+        System.out.print("Enter a number: ");
+        int number = scanner.nextInt();
+        
+        System.out.println("Factor pairs of " + number + " are: ");
+        
+        // Loop to find factor pairs
+        for (int i = 1; i <= Math.sqrt(number); i++) {
+            if (number % i == 0) { // Check if i is a factor
+                // If i is a factor, the pair is (i, number/i)
+                int pair = number / i;
+                System.out.println(i + " and " + pair);
+            }
+        }
+        scanner.close();
+    }
+}
+import java.util.Scanner;
+public class Main {
+    
+    // Function to compute GCD using Euclidean algorithm
+    public static int findGCD(int a, int b) {
+        // If b is 0, the GCD is a
+        while (b != 0) {
+            int temp = b;
+            b = a % b;
+            a = temp;
+        }
+        return a;
+    }
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        // Input two numbers
+        System.out.print("Enter the first number: ");
+        int num1 = scanner.nextInt();
+        
+        System.out.print("Enter the second number: ");
+        int num2 = scanner.nextInt();
+        
+        // Find and display the GCD
+        int gcd = findGCD(num1, num2);
+        System.out.println("The GCD of " + num1 + " and " + num2 + " is: " + gcd);
+        
+        scanner.close();
+    }
+}
+import java.util.Scanner;
+public class Main {
+    // Function to check if a number is prime using the flag method
+    public static boolean isPrime(int num) {
+        // Prime numbers are greater than 1
+        if (num <= 1) {
+            return false;
+        }
+        // Set flag to true, assuming the number is prime
+        boolean isPrimeFlag = true;
+        // Check for factors from 2 to sqrt(num)
+        for (int i = 2; i <= Math.sqrt(num); i++) {
+            if (num % i == 0) { // If divisible, it's not a prime number
+                isPrimeFlag = false; // Set flag to false
+                break; // No need to check further
+            }
+        }
+        // Output factors of the number
+        System.out.print("Factors of " + num + ": ");
+        for (int i = 1; i <= num; i++) {
+            if (num % i == 0) {
+                System.out.print(i + " "); // Print all factors
+            }
+        }
+        // If the flag is still true, it's prime
+        if (isPrimeFlag) {
+            System.out.println("(Prime number)");
+        } else {
+            System.out.println("(Not a prime number)");
+        }
+        return isPrimeFlag;
+    }
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        // Input the limit up to which we need to find primes
+        System.out.print("Enter the limit: ");
+        int limit = scanner.nextInt();
+        System.out.println("Checking numbers up to " + limit + ":");
+        // Check each number up to the limit
+        for (int i = 2; i <= limit; i++) {
+            isPrime(i);
+        }
+        scanner.close();
+    }
+}
+import java.util.ArrayList;
+import java.util.List;
+public class User {
+    private String username;
+    private String password;
+    private List<Post> posts;
+    private List<User> following;
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+        this.posts = new ArrayList<>();
+        this.following = new ArrayList<>();
+    }
+    public String getUsername() {
+        return username;
+    }
+    public String getPassword() {
+        return password;
+    }
+    public List<Post> getPosts() {
+        return posts;
+    }
+    public List<User> getFollowing() {
+        return following;
+    }
+    public void addPost(Post post) {
+        posts.add(post);
+    }
+    public void followUser(User user) {
+        if (!following.contains(user)) {
+            following.add(user);
+        }
+    }
+    public void unfollowUser(User user) {
+        following.remove(user);
+    }
+}
+import java.util.ArrayList;
+import java.util.List;
+public class Post {
+    private String content;
+    private User author;
+    private List<Comment> comments;
+    private List<User> likes;
+    public Post(String content, User author) {
+        this.content = content;
+        this.author = author;
+        this.comments = new ArrayList<>();
+        this.likes = new ArrayList<>();
+    }
+    public String getContent() {
+        return content;
+    }
+    public User getAuthor() {
+        return author;
+    }
+    public List<Comment> getComments() {
+        return comments;
+    }
+    public List<User> getLikes() {
+        return likes;
+    }
+    public void addComment(Comment comment) {
+        comments.add(comment);
+    }
+    public void addLike(User user) {
+        if (!likes.contains(user)) {
+            likes.add(user);
+        }
+    }
+}
+public class Comment {
+    private String content;
+    private User author;
+    public Comment(String content, User author) {
+        this.content = content;
+        this.author = author;
+    }
+    public String getContent() {
+        return content;
+    }
+    public User getAuthor() {
+        return author;
+    }
+}
+import java.util.HashMap;
+import java.util.Map;
+public class SocialNetwork {
+    private Map<String, User> users;
+    public SocialNetwork() {
+        this.users = new HashMap<>();
+    }
+    public User registerUser(String username, String password) {
+        if (!users.containsKey(username)) {
+            User user = new User(username, password);
+            users.put(username, user);
+            return user;
+        } else {
+            System.out.println("Username already exists.");
+            return null;
+        }
+    }
+    public User loginUser(String username, String password) {
+        User user = users.get(username);
+        if (user != null && user.getPassword().equals(password)) {
+            return user;
+        } else {
+            System.out.println("Invalid username or password.");
+            return null;
+        }
+    }
+    public void addPost(User user, String content) {
+        if (user != null) {
+            Post post = new Post(content, user);
+            user.addPost(post);
+        }
+    }
+    public void addComment(User user, Post post, String content) {
+        if (user != null && post != null) {
+            Comment comment = new Comment(content, user);
+            post.addComment(comment);
+        }
+    }
+    public void likePost(User user, Post post) {
+        if (user != null && post != null) {
+            post.addLike(user);
+        }
+    }
+    public void followUser(User follower, User followee) {
+        if (follower != null && followee != null) {
+            follower.followUser(followee);
+        }
+    }
+    public void unfollowUser(User follower, User followee) {
+        if (follower != null && followee != null) {
+            follower.unfollowUser(followee);
+        }
+    }
+    public void displayPosts(User user) {
+        if (user != null) {
+            for (Post post : user.getPosts()) {
+                System.out.println("Post: " + post.getContent());
+                System.out.println("Likes: " + post.getLikes().size());
+                System.out.println("Comments:");
+                for (Comment comment : post.getComments()) {
+                    System.out.println("  " + comment.getAuthor().getUsername() + ": " + comment.getContent());
+                }
+            }
+        }
+    }
+    public void displayFeed(User user) {
+        if (user != null) {
+            for (User followee : user.getFollowing()) {
+                System.out.println(followee.getUsername() + "'s posts:");
+                displayPosts(followee);
+            }
+        }
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        SocialNetwork socialNetwork = new SocialNetwork();
+        // Register users
+        User user1 = socialNetwork.registerUser("john_doe", "password123");
+        User user2 = socialNetwork.registerUser("jane_doe", "password456");
+        // User login
+        User loggedInUser1 = socialNetwork.loginUser("john_doe", "password123");
+        User loggedInUser2 = socialNetwork.loginUser("jane_doe", "password456");
+        // Add posts
+        socialNetwork.addPost(loggedInUser1, "Hello, this is my first post!");
+        socialNetwork.addPost(loggedInUser2, "Hi everyone, glad to be here!");
+        // Add comments
+        if (loggedInUser1 != null && loggedInUser1.getPosts().size() > 0) {
+            Post post1 = loggedInUser1.getPosts().get(0);
+            socialNetwork.addComment(loggedInUser2, post1, "Nice to see you here!");
+        }
+        // Like posts
+        if (loggedInUser1 != null && loggedInUser2 != null && loggedInUser2.getPosts().size() > 0) {
+            Post post2 = loggedInUser2.getPosts().get(0);
+            socialNetwork.likePost(loggedInUser1, post2);
+        }
+        // Follow users
+        socialNetwork.followUser(loggedInUser1, loggedInUser2);
+        // Display posts
+        socialNetwork.displayPosts(loggedInUser1);
+        socialNetwork.displayPosts(loggedInUser2);
+        // Display feed
+        socialNetwork.displayFeed(loggedInUser1);
+    }
+}
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Random;
+import java.util.Scanner;
+public class LanguageLearningApp {
+    private static Scanner scanner = new Scanner(System.in);
+    private static HashMap<String, User> users = new HashMap<>();
+    private static User loggedInUser;
+    public static void main(String[] args) {
+        boolean running = true;
+        while (running) {
+            System.out.println("Welcome to the Language Learning App!");
+            System.out.println("1. Register");
+            System.out.println("2. Login");
+            System.out.println("3. Exit");
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume newline
+            switch (choice) {
+                case 1:
+                    register();
+                    break;
+                case 2:
+                    login();
+                    break;
+                case 3:
+                    running = false;
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
+        System.out.println("Thank you for using the Language Learning App!");
+    }
+    private static void register() {
+        System.out.print("Enter username: ");
+        String username = scanner.nextLine();
+        System.out.print("Enter password: ");
+        String password = scanner.nextLine();
+        if (users.containsKey(username)) {
+            System.out.println("Username already taken. Please choose another one.");
+        } else {
+            users.put(username, new User(username, password));
+            System.out.println("Registration successful!");
+        }
+    }
+    private static void login() {
+        System.out.print("Enter username: ");
+        String username = scanner.nextLine();
+        System.out.print("Enter password: ");
+        String password = scanner.nextLine();
+        User user = users.get(username);
+        if (user != null && user.getPassword().equals(password)) {
+            System.out.println("Login successful!");
+            loggedInUser = user;
+            userMenu();
+        } else {
+            System.out.println("Invalid username or password. Please try again.");
+        }
+    }
+    private static void userMenu() {
+        boolean loggedIn = true;
+        while (loggedIn) {
+            System.out.println("Welcome, " + loggedInUser.getUsername() + "!");
+            System.out.println("1. Add Vocabulary");
+            System.out.println("2. View Vocabulary");
+            System.out.println("3. Take Quiz");
+            System.out.println("4. Logout");
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume newline
+            switch (choice) {
+                case 1:
+                    addVocabulary();
+                    break;
+                case 2:
+                    viewVocabulary();
+                    break;
+                case 3:
+                    takeQuiz();
+                    break;
+                case 4:
+                    loggedIn = false;
+                    loggedInUser = null;
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
+    }
+    private static void addVocabulary() {
+        System.out.print("Enter word: ");
+        String word = scanner.nextLine();
+        System.out.print("Enter translation: ");
+        String translation = scanner.nextLine();
+        loggedInUser.addVocabulary(word, translation);
+        System.out.println("Vocabulary added!");
+    }
+    private static void viewVocabulary() {
+        List<Vocabulary> vocabularies = loggedInUser.getVocabulary();
+        if (vocabularies.isEmpty()) {
+            System.out.println("No vocabulary added yet.");
+        } else {
+            System.out.println("Your Vocabulary:");
+            for (Vocabulary vocab : vocabularies) {
+                System.out.println(vocab.getWord() + " - " + vocab.getTranslation());
+            }
+        }
+    }
+    private static void takeQuiz() {
+        List<Vocabulary> vocabularies = loggedInUser.getVocabulary();
+        if (vocabularies.isEmpty()) {
+            System.out.println("No vocabulary to quiz on. Please add some vocabulary first.");
+            return;
+        }
+        Random random = new Random();
+        int score = 0;
+        for (int i = 0; i < 5; i++) {
+            Vocabulary vocab = vocabularies.get(random.nextInt(vocabularies.size()));
+            System.out.print("Translate " + vocab.getWord() + ": ");
+            String answer = scanner.nextLine();
+            if (answer.equalsIgnoreCase(vocab.getTranslation())) {
+                System.out.println("Correct!");
+                score++;
+            } else {
+                System.out.println("Incorrect. The correct translation is " + vocab.getTranslation());
+            }
+        }
+        System.out.println("Quiz completed! Your score: " + score + "/5");
+    }
+}
+class User {
+    private String username;
+    private String password;
+    private List<Vocabulary> vocabulary;
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+        this.vocabulary = new ArrayList<>();
+    }
+    public String getUsername() {
+        return username;
+    }
+    public String getPassword() {
+        return password;
+    }
+    public void addVocabulary(String word, String translation) {
+        this.vocabulary.add(new Vocabulary(word, translation));
+    }
+    public List<Vocabulary> getVocabulary() {
+        return vocabulary;
+    }
+}
+class Vocabulary {
+    private String word;
+    private String translation;
+    public Vocabulary(String word, String translation) {
+        this.word = word;
+        this.translation = translation;
+    }
+    public String getWord() {
+        return word;
+    }
+    public String getTranslation() {
+        return translation;
+    }
