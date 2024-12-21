@@ -235,7 +235,7 @@ public class Main{
 }
 
 
-OR
+
 
 import java.util.Scanner;
 public class Main{
